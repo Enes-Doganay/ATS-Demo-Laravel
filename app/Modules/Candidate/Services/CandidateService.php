@@ -3,6 +3,7 @@
 namespace App\Modules\Candidate\Services;
 
 use App\Modules\Candidate\Repositories\CandidateRepositoryInterface;
+use App\Shared\Exceptions\EntityNotFoundError;
 
 class CandidateService
 {
@@ -20,7 +21,13 @@ class CandidateService
 
     public function getCandidateById(int $id)
     {
-        return $this->repository->find($id);
+        $candidate = $this->repository->find($id);
+
+        if (!$candidate) {
+            throw new EntityNotFoundError('Candidate', $id);
+        }
+
+        return $candidate;
     }
 
     public function createCandidate(array $data)
@@ -30,11 +37,21 @@ class CandidateService
 
     public function updateCandidate(int $id, array $data)
     {
-        return $this->repository->update($id, $data);
+        $updated = $this->repository->update($id, $data);
+
+        if (!$updated) {
+            throw new EntityNotFoundError('Candidate', $id);
+        }
+
+        return $updated;
     }
 
     public function deleteCandidate(int $id)
     {
-        return $this->repository->delete($id);
+        $deleted = $this->repository->delete($id);
+
+        if (!$deleted) {
+            throw new EntityNotFoundError('Candidate', $id);
+        }
     }
 }

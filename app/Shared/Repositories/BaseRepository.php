@@ -30,10 +30,16 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function update($id, array $data): bool
+    public function update($id, array $data): ?Model
     {
-        $item = $this->find($id);
-        return $item ? $item->update($data) : false;
+        $model = $this->find($id);
+        
+        if (!$model) {
+            return null;
+        }
+
+        $model->update($data);
+        return $model->fresh();
     }
 
     public function delete($id): bool

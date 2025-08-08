@@ -3,6 +3,7 @@
 namespace App\Modules\Candidate\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Candidate\Resources\CandidateResource;
 use App\Modules\Candidate\Services\CandidateService;
 use Illuminate\Http\Request;
 
@@ -18,16 +19,13 @@ class CandidateController extends Controller
     public function index()
     {
         $candidates = $this->candidateService->getAllCandidates();
-        return response()->json($candidates);
+        return CandidateResource::collection($candidates);
     }
 
     public function show($id)
     {
         $candidate = $this->candidateService->getCandidateById($id);
-        if (!$candidate) {
-            return response()->json(['message' => 'Candidate not found'], 404);
-        }
-        return response()->json($candidate);
+        return new CandidateResource($candidate);
     }
 
     public function store(Request $request)
@@ -42,7 +40,7 @@ class CandidateController extends Controller
         ]);
 
         $candidate = $this->candidateService->createCandidate($validated);
-        return response()->json($candidate, 201);
+        return new CandidateResource($candidate);
     }
 
     public function update(Request $request, $id)
@@ -56,22 +54,12 @@ class CandidateController extends Controller
         ]);
         
         $updated = $this->candidateService->updateCandidate($id, $validated);
-
-        if (!$updated) {
-            return response()->json(['message' => 'Candidate not found or update failed'], 404);
-        }
-        
-        return response()->json(['message' => 'Candidate updated successfully']);
+        return new CandidateResource($updated);
     }
 
     public function destroy($id)
     {
-        $deleted = $this->candidateService->deleteCandidate($id);
-
-        if (!$deleted) {
-            return response()->json(['message' => 'Candidate not found or delete failed'], 404);
-        }
-            
-        return response()->json(['message' => 'Candidate deleted successfully']);
+        $this->candidateService->deleteCandidate($id);
+        return response()->json(null, 204);
     }
 }
