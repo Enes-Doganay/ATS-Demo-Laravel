@@ -277,6 +277,130 @@
           }
         }
       }
+    },
+    "/api/job-postings": {
+      "get": {
+        "summary": "Retrieve a list of job postings",
+        "tags": ["JobPosting"],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of job postings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JobPosting"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new job posting",
+        "tags": ["JobPosting"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobPostingCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Job posting created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPosting"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/job-postings/{id}": {
+      "get": {
+        "summary": "Retrieve a job posting by ID",
+        "tags": ["JobPosting"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with job posting data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPosting"
+                }
+              }
+            }
+          },
+          "404": { "description": "Job posting not found" }
+        }
+      },
+      "put": {
+        "summary": "Update a job posting by ID",
+        "tags": ["JobPosting"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobPostingUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Job posting updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobPosting"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a job posting by ID",
+        "tags": ["JobPosting"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Job posting deleted successfully" },
+          "404": { "description": "Job posting not found" }
+        }
+      }
     }
   },
   "components": {
@@ -457,6 +581,36 @@
             "nullable": true,
             "example": "http://example.com/resumes/ahmet_yilmaz.pdf"
           }
+        }
+      },
+      "JobPosting": {
+        "type": "object",
+        "required": ["id", "title", "description", "location"],
+        "properties": {
+          "id": { "type": "integer", "example": 100 },
+          "title": { "type": "string", "example": "Senior PHP Developer" },
+          "description": { "type": "string", "example": "Develop and maintain PHP applications." },
+          "location": { "type": "string", "example": "Istanbul, Turkey" },
+          "posted_by": { "type": "integer", "nullable": true, "example": 1 }
+        }
+      },
+      "JobPostingCreateRequest": {
+        "type": "object",
+        "required": ["title", "description", "location", "posted_by"],
+        "properties": {
+          "title": { "type": "string", "example": "Senior PHP Developer" },
+          "description": { "type": "string", "example": "Develop and maintain PHP applications." },
+          "location": { "type": "string", "example": "Istanbul, Turkey" },
+          "posted_by": { "type": "integer", "example": 1 }
+        }
+      },
+      "JobPostingUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "example": "Senior PHP Developer" },
+          "description": { "type": "string", "example": "Develop and maintain PHP applications." },
+          "location": { "type": "string", "example": "Istanbul, Turkey" },
+          "posted_by": { "type": "integer", "example": 1 }
         }
       }
     }
