@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Modules\Candidate\Repositories\CandidateRepositoryInterface;
 use App\Modules\Candidate\Repositories\EloquentCandidateRepository;
+use App\Modules\User\Repositories\EloquentUserRepository;
+use App\Modules\User\Repositories\UserRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             CandidateRepositoryInterface::class,
             EloquentCandidateRepository::class
+        );
+
+        $this->app->bind(
+            UserRepositoryInterface::class,
+            EloquentUserRepository::class
         );
     }
 
