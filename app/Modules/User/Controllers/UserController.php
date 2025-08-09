@@ -8,9 +8,6 @@ use App\Modules\User\Requests\UpdateUserRequest;
 use App\Modules\User\Resources\UserResource;
 use App\Modules\User\Services\UserService;
 
-;
-use Illuminate\Http\Request;
-
 class UserController extends Controller
 {
     protected $userService;

@@ -1,0 +1,464 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ATS Demo API",
+    "version": "1.0.0",
+    "description": "Swagger documentation for ATS Demo API"
+  },
+  "paths": {
+    "/api/users": {
+      "get": {
+        "summary": "Retrieve a list of users",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new user",
+        "tags": ["User"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "summary": "Retrieve a user by ID",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with user data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a user by ID",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a user by ID",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User deleted successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/candidates": {
+      "get": {
+        "summary": "Retrieve a list of candidates",
+        "tags": ["Candidate"],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of candidates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Candidate"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new candidate",
+        "tags": ["Candidate"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CandidateCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Candidate created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Candidate"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/candidates/{id}": {
+      "get": {
+        "summary": "Retrieve a candidate by ID",
+        "tags": ["Candidate"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with candidate data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Candidate"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Candidate not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a candidate by ID",
+        "tags": ["Candidate"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CandidateUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Candidate updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Candidate"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a candidate by ID",
+        "tags": ["Candidate"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Candidate deleted successfully"
+          },
+          "404": {
+            "description": "Candidate not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "required": ["id", "name", "email", "role"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Enes Doğanay"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "enes@example.com"
+          },
+          "role": {
+            "type": "string",
+            "description": "User role, e.g. 'admin' or 'recruiter'",
+            "example": "admin"
+          }
+        }
+      },
+      "UserCreateRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Enes Doğanay"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "enes@example.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "example": "secretPass123!"
+          },
+          "role": {
+            "type": "string",
+            "description": "Optional role: admin or recruiter",
+            "example": "recruiter"
+          }
+        }
+      },
+      "UserUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Enes Doğanay"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "enes@example.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "example": "newSecretPass123!"
+          },
+          "role": {
+            "type": "string",
+            "description": "Optional role: admin or recruiter",
+            "example": "admin"
+          }
+        }
+      },
+      "Candidate": {
+        "type": "object",
+        "required": ["id", "user_id", "first_name", "last_name", "email"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 10
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "first_name": {
+            "type": "string",
+            "example": "Ahmet"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Yılmaz"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "ahmet@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "example": "+905551112233"
+          },
+          "resume_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "example": "http://example.com/resumes/ahmet_yilmaz.pdf"
+          }
+        }
+      },
+      "CandidateCreateRequest": {
+        "type": "object",
+        "required": ["user_id", "first_name", "last_name", "email"],
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "first_name": {
+            "type": "string",
+            "example": "Ahmet"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Yılmaz"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "ahmet@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "example": "+905551112233"
+          },
+          "resume_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "example": "http://example.com/resumes/ahmet_yilmaz.pdf"
+          }
+        }
+      },
+      "CandidateUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "first_name": {
+            "type": "string",
+            "example": "Ahmet"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Yılmaz"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "ahmet@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "example": "+905551112233"
+          },
+          "resume_url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "example": "http://example.com/resumes/ahmet_yilmaz.pdf"
+          }
+        }
+      }
+    }
+  }
+}
