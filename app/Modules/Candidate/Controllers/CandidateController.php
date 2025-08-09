@@ -3,9 +3,10 @@
 namespace App\Modules\Candidate\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Candidate\Requests\StoreCandidateRequest;
+use App\Modules\Candidate\Requests\UpdateCandidateRequest;
 use App\Modules\Candidate\Resources\CandidateResource;
 use App\Modules\Candidate\Services\CandidateService;
-use Illuminate\Http\Request;
 
 class CandidateController extends Controller
 {
@@ -28,32 +29,15 @@ class CandidateController extends Controller
         return new CandidateResource($candidate);
     }
 
-    public function store(Request $request)
+    public function store(StoreCandidateRequest $request)
     {
-        $validated = $request->validate([
-            'user_id' => 'required|integer',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'resume_url' => 'nullable|string',
-        ]);
-
-        $candidate = $this->candidateService->createCandidate($validated);
+        $candidate = $this->candidateService->createCandidate($request->validated());
         return new CandidateResource($candidate);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateCandidateRequest $request, $id)
     {
-        $validated = $request->validate([
-            'first_name' => 'sometimes|required|string|max:255',
-            'last_name' => 'sometimes|required|string|max:255',
-            'email' => 'sometimes|required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'resume_url' => 'nullable|url',
-        ]);
-        
-        $updated = $this->candidateService->updateCandidate($id, $validated);
+        $updated = $this->candidateService->updateCandidate($id, $request->validated());
         return new CandidateResource($updated);
     }
 
