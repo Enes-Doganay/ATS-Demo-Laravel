@@ -18,7 +18,6 @@ class CandidateResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'resume_url' => $this->resume_url,
-            // 'user' => new UserResource($this->whenLoaded('user'))
         ];
     }
 }
