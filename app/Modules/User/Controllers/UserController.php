@@ -3,6 +3,8 @@
 namespace App\Modules\User\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\User\Requests\StoreUserRequest;
+use App\Modules\User\Requests\UpdateUserRequest;
 use App\Modules\User\Resources\UserResource;
 use App\Modules\User\Services\UserService;
 
@@ -30,28 +32,15 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8',
-            'role' => 'sometimes|in:admin,recruiter'
-        ]);
-        $user = $this->userService->createUser($validated);
+        $user = $this->userService->createUser($request->validated());
         return new UserResource($user);
     }
 
-    public function update(Request $request, int $id)
+    public function update(UpdateUserRequest $request, int $id)
     {
-        $validated = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|max:255|unique:users,email',
-            'password' => 'sometimes|string|min:8',
-            'role' => 'sometimes|in:admin,recruiter'
-        ]);
-        
-        $updated = $this->userService->updateUser($id, $validated);
+        $updated = $this->userService->updateUser($id, $request->validated());
         return new UserResource($updated);
     }
 
