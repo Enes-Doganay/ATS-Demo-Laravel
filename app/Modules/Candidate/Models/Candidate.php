@@ -3,7 +3,7 @@
 namespace App\Modules\Candidate\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
+use App\Modules\User\Models\User;
 
 class Candidate extends Model
 {
@@ -17,4 +17,9 @@ class Candidate extends Model
         'phone',
         'resume_url',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
