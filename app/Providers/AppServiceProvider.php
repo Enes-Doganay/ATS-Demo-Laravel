@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Modules\Application\Repositories\ApplicationRepositoryInterface;
 use App\Modules\Application\Repositories\EloquentApplicationRepository;
+use App\Modules\Auth\Repositories\RefreshTokenRepositoryInterface;
+use App\Modules\Auth\Repositories\EloquentRefreshTokenRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Modules\Candidate\Repositories\CandidateRepositoryInterface;
 use App\Modules\Candidate\Repositories\EloquentCandidateRepository;
@@ -38,6 +40,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ApplicationRepositoryInterface::class,
             EloquentApplicationRepository::class
+        );
+
+        $this->app->bind(
+            RefreshTokenRepositoryInterface::class,
+            EloquentRefreshTokenRepository::class
         );
     }
 
